@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Frontend Mentor | Todo app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body class="body">
+    <div class="header"></div>
+    <main>
+      <div class="content">
+        <h2 class="content_title">TODO</h2>
+        <!--Dark Mode Swich -->
+        <div class="theme-switch-wrapper">
+          <span class="toggle-icon">
+            <img class="icon" src="./images/icon-light.svg" alt="" />
+          </span>
+          <label class="theme-switch">
+            <input class="input_darkmode" type="checkbox" />
+          </label>
+        </div>
+      </div>
+
+      <form class="addTodo" id="addForm" onsubmit="addItem(); return false;">
+        <button type="submit" class="btn addNewBtn" aria-label="button">
+          <span class="plusSign custom_checkbox">+</span>
+        </button>
+        <input
+          class="addNew"
+          name="add"
+          type="text"
+          id="create"
+          placeholder="Create a new todo..."
+          aria-label="Create a new todo..."
+        />
+      </form>
+
+      <div class="container">
+        <div class="alert"></div>
+        <div class="card">
+          <div>
+            <ul class="tasks">
+            </ul>
+          </div>
+
+          <div class="task items_left">
+            <p class="counter" id="counter"></p>
+            <button class="btn clear">Clear Completed</button>
+          </div>
+        </div>
+
+        <div class="bottom">
+          <div class="buttons filter-todos">
+            <button class="btn all active" value="all">All</button>
+            <button class="btn activeBtn" value="active">Active</button>
+            <button class="btn completed" value="completed">Completed</button>
+          </div>
+        </div>
+      </div>
+      <footer class="attribution">
+        <p class="drag_text">Drag and drop to reorder list</p>
+        <p class="author">
+          Challenge by
+          <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+            >Frontend Mentor</a
+          >. Coded by
+          <a href="https://github.com/pruvi007" target="_blank">@pruvi007</a>.
+        </p>
+      </footer>
+    </main>
+
+    <template id="task-template">
+      <li class="task">
+        <input class="task-input" type="checkbox" />
+        <label>
+          <span class="custom_checkbox"></span>
+        </label>
+        <span class="deleteBtn">
+          <img class="delete" src="./images/icon-cross.svg" alt="" />
+        </span>
+      </li>
+    </template>
+
+    <!-- <script src="./js/dark.js"></script>
+    <script src="./js/todo.js"></script> -->
+  </body>
+<script>
+  var db=[{"id":1,"task":"study"},{"id":2, "task":"playing"}]
+  function init(){
+    let s="";
+    for(let i=0;i<db.length;i++){
+      s+="<li class='task'> " +db[i]['task']+"</li>"
+    }
+    document.getElementsByClassName("tasks")[0].innerHTML=s
+    document.getElementById("counter").innerHTML=db.length+' items-left'
+  }
+  init()
+  function addItem(){
+    let item=document.getElementById("create").value
+    let max=-1;
+    for(let i=0;i<db.length;i++){
+      max=Math.max(max,db[i]["id"])
+    }
+    db.push({'id':max+1, 'task':item})
+    // document.getElementsById("addForm")[0].reset()
+    init()
+    
+  }
+
+</script>
+</html>
