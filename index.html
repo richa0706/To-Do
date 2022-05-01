@@ -123,13 +123,24 @@
   function addItem(){
     let item=document.getElementById("create").value
     let max=-1;
-    for(let i=0;i<db.length;i++){
-      max=Math.max(max,db[i]["id"])
+    if(item==''){
+      alert("add something")
+      return
     }
+
+    for(let i=0;i<db.length;i++){
+        max=Math.max(max,db[i]["id"])
+      }
+      for(let i=0;i<db.length;i++){
+        if(db[i]['task']==item){
+          alert("This task has been added!!")
+          return
+        }
+      }
     db.push({'id':max+1, 'task':item})
     // document.getElementsById("addForm")[0].reset()
     init()
-    
+
   }
 
 </script>
