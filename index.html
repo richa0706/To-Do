@@ -11,10 +11,8 @@
       sizes="32x32"
       href="./images/favicon-32x32.png"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <title>Frontend Mentor | Todo app</title>
@@ -114,7 +112,7 @@
   function init(){
     let s="";
     for(let i=0;i<db.length;i++){
-      s+="<li class='task'> " +db[i]['task']+"</li>"
+      s+="<li class='task'> " +db[i]['task']+" <i class='fa fa-edit' onclick='editItem("+db[i]["id"]+")'></i></li>"
     }
     document.getElementsByClassName("tasks")[0].innerHTML=s
     document.getElementById("counter").innerHTML=db.length+' items-left'
@@ -122,6 +120,17 @@
   init()
   function addItem(){
     let item=document.getElementById("create").value
+    if(current_id!==-1){
+//edit part
+ for(let i=0;i<db.length;i++){
+   if(db[i]["id"]==current_id){
+     db[i]["task"]=item
+     break
+   }
+ }
+current_id=-1
+    }else{
+  //add part 
     let max=-1;
     if(item==''){
       alert("add something")
@@ -138,9 +147,21 @@
         }
       }
     db.push({'id':max+1, 'task':item})
+  }
     // document.getElementsById("addForm")[0].reset()
     init()
 
+  }
+  var current_id=-1;
+  function editItem(id){
+    current_id=id;
+    for(let i=0;i<db.length;i++){
+      if(db[i]["id"]==id){
+        document.getElementById("create").value=db[i]["task"]
+        break
+      }
+    }
+  console.log("edit")
   }
 
 </script>
